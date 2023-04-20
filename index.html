@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <main>
+        <div class="section" id="search-bar">
+            <div class="container">
+                <div class="box">
+                <div class="columns">
+                    <div class="column">
+                        <h1 class="is-size-4 has-text-centered pb-5">Where are you?</h1>
+                        <form>
+                            <div class="columns">
+                                <div class="column is-four-fifths">
+                                    <input class="input is-primary" type="text" placeholder="Type your city">
+                                </div>
+                                <div class="column">
+                                    <button class="button is-info is is-rounded" id="search-btn">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>       
+        
+                    <div class="search-history has-text-centered pt-5">
+                        <button class="button" class="previous-city">Rio de Janeiro</button>
+                        <button class="button" class="previous-city">Sao Paulo</button>
+                        <button class="button" class="previous-city">Monterrey</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="today-display">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <div class="box">
+                            <h1>City Name</h1>
+                            <p id="today-date"></p>
+                            <p class="temperature">Temp:</p>
+                            <p class="wind">Wind:</p>
+                            <p class="humidity">Humidity:</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="forecast">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <div class="box">
+                            <div class="media-center">
+                                <figure class="image is-64x64">
+                                    <img src="./assets/img/weather example.png">
+                                </figure>
+                            </div>
+                            <p id="date">20/04/2023</p>
+                            <p class="temperature">Temp:</p>
+                            <p class="wind">Wind:</p>
+                            <p class="humidity">Humidity:</p>
+                        </div>
+                    </div>
+                    
+                    <div class="column">
+                        <div class="box">
+                            <div class="media-center">
+                                <figure class="image is-64x64">
+                                    <img src="./assets/img/weather example.png">
+                                </figure>
+                            </div>
+                            <p id="date">20/04/2023</p>
+                            <p class="temperature">Temp:</p>
+                            <p class="wind">Wind:</p>
+                            <p class="humidity">Humidity:</p>
+                        </div>
+                    </div>
+            
+                    <div class="column">
+                        <div class="box">
+                            <div class="media-center">
+                                <figure class="image is-64x64">
+                                    <img src="./assets/img/weather example.png">
+                                </figure>
+                            </div>
+                            <p id="date">20/04/2023</p>
+                            <p class="temperature">Temp:</p>
+                            <p class="wind">Wind:</p>
+                            <p class="humidity">Humidity:</p>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="box">
+                            <div class="media-center">
+                                <figure class="image is-64x64">
+                                    <img src="./assets/img/weather example.png">
+                                </figure>
+                            </div>
+                            <p id="date">20/04/2023</p>
+                            <p class="temperature">Temp:</p>
+                            <p class="wind">Wind:</p>
+                            <p class="humidity">Humidity:</p>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="box">
+                            <div class="media-center">
+                                <figure class="image is-64x64">
+                                    <img src="./assets/img/weather example.png">
+                                </figure>
+                            </div>
+                            <p id="date">20/04/2023</p>
+                            <p class="temperature">Temp:</p>
+                            <p class="wind">Wind:</p>
+                            <p class="humidity">Humidity:</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+    crossorigin="anonymous"></script>
+    <script src="./assets/script.js"></script>
+</body>
+</html>
