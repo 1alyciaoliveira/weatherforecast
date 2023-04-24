@@ -13,6 +13,7 @@ searchBtn.addEventListener('click', (e) => {
     saveCity();
 });
 
+
 async function fetchAPIweather () {
     const todayBaseURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=${API_KEY}`;
     const todayInfo = await fetch(todayBaseURL).then(response => response.json());
@@ -24,26 +25,30 @@ function generateTodayHTML(results) {
         const temp = Math.round(results.main.temp - 273.15);
         const windToday = results.wind.speed;
         const humidityToday = results.main.humidity;
+        const iconCode = results.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+        
 
-        let generatedTodayHTML =
-        `
-        <div class="section" id="today-display">
-        <div class="container">
-            <div class="columns">
-                <div class="column">
-                    <div class="box">
-                        <h1 class="city-name">${cityName}</h1>
-                        <img src="" alt="">
-                        <p id="today-date"></p>
-                        <p id="temperature-today">Temperature: ${temp}</p>
-                        <p id="wind-today">Wind: ${windToday}</p>
-                        <p id="humidity-today">Humidity: ${humidityToday}</p>
-                    </div>
+let generatedTodayHTML =
+`
+<div class="section" id="today-display">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                    <h1 class="city-name">${cityName}</h1>
+                    <div id="icon"><img id="wicon" src="${iconUrl}" alt="Weather icon"></div>
+                    <p id="today-date">TODAY</p>
+                    <p id="temperature-today">Temperature: ${temp}°C</p>
+                    <p id="wind-today">Wind: ${windToday} meter/sec</p>
+                    <p id="humidity-today">Humidity: ${humidityToday}%</p>
                 </div>
             </div>
         </div>
     </div>
-        `
+</div>
+`;
+
     todayDisplay.innerHTML = generatedTodayHTML;
     
 }
@@ -63,6 +68,9 @@ function generateHTML(results) {
       const temperature = Math.round(forecast.main.temp - 273.15);
       const wind = forecast.wind.speed;
       const humidity = forecast.main.humidity;
+      const iconCodeForecast = forecast.weather[0].icon;
+      const iconUrlForecast = `http://openweathermap.org/img/w/${iconCodeForecast}.png`;
+      
   
       generatedHTML +=
         `
@@ -73,13 +81,13 @@ function generateHTML(results) {
                 <div class="box">
                   <div class="media-center">
                     <figure class="image is-64x64">
-                      <img src="./assets/img/weather example.png">
+                      <img src="${iconUrlForecast}">
                     </figure>
                   </div>
                   <p id="date">${date}</p>
-                  <p class="temperature">Temp: ${temperature}</p>
-                  <p class="wind">Wind: ${wind}</p>
-                  <p class="humidity">Humidity: ${humidity}</p>
+                  <p class="temperature">Temp: ${temperature}°C</p>
+                  <p class="wind">Wind: ${wind} meter/sec</p>
+                  <p class="humidity">Humidity: ${humidity}%</p>
                 </div>
               </div>
             </div>
@@ -107,7 +115,6 @@ function saveCity () {
             generatedHistoryHTML +=
         `
         <button class="button" class="previous-city">${savedCity[i]}</button>
-    </div>
     `
     searchHistoryContainer.innerHTML = generatedHistoryHTML;
     }

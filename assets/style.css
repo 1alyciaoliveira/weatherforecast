@@ -1,1 +1,32 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+.container-flex {
+    display: flex;
+}
+
+#forecast.section {
+    display: flex;
+    padding: 10px;
+    width:60%;
+}
+
+#today-display.section {
+    display: flex;
+    padding: 10px;
+    width: 40%;
+}
+
+#today-display .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #today-display .box {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+  }
