@@ -14,17 +14,17 @@
     <main>
         <div class="section" id="search-bar">
             <div class="container">
-                <div class="box">
+              <div class="box">
                 <div class="columns">
                     <div class="column">
                         <h1 class="is-size-4 has-text-centered pb-5">Where are you?</h1>
                         <form>
-                            <div class="columns">
-                                <div class="column is-four-fifths">
-                                    <input class="input is-primary" type="text" placeholder="Type your city">
+                            <div class="field has-addons">
+                                <div class="control is-expanded">
+                                    <input class="input is-primary" id="search-input" type="text" placeholder="Type your city">
                                 </div>
-                                <div class="column">
-                                    <button class="button is-info is is-rounded" id="search-btn">
+                                <div class="control">
+                                    <button class="button is-info" id="search-btn"> 
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -32,9 +32,11 @@
                         </form>       
         
                     <div class="search-history has-text-centered pt-5">
+                        <!--
                         <button class="button" class="previous-city">Rio de Janeiro</button>
                         <button class="button" class="previous-city">Sao Paulo</button>
                         <button class="button" class="previous-city">Monterrey</button>
+                    -->
                     </div>
                 </div>
                 </div>
@@ -42,22 +44,27 @@
         </div>
 
         <div class="section" id="today-display">
+            <!--
             <div class="container">
                 <div class="columns">
                     <div class="column">
                         <div class="box">
-                            <h1>City Name</h1>
+                            <h1 class="city-name">City Name</h1>
+                            <img src="" alt="">
                             <p id="today-date"></p>
-                            <p class="temperature">Temp:</p>
-                            <p class="wind">Wind:</p>
-                            <p class="humidity">Humidity:</p>
+                            <p id="temperature-today">Temp:</p>
+                            <p id="wind-today">Wind:</p>
+                            <p id="humidity-today">Humidity:</p>
                         </div>
                     </div>
                 </div>
             </div>
+            -->
         </div>
 
+        
         <div class="section" id="forecast">
+            <!--
             <div class="container">
                 <div class="columns">
                     <div class="column">
@@ -73,64 +80,9 @@
                             <p class="humidity">Humidity:</p>
                         </div>
                     </div>
-                    
-                    <div class="column">
-                        <div class="box">
-                            <div class="media-center">
-                                <figure class="image is-64x64">
-                                    <img src="./assets/img/weather example.png">
-                                </figure>
-                            </div>
-                            <p id="date">20/04/2023</p>
-                            <p class="temperature">Temp:</p>
-                            <p class="wind">Wind:</p>
-                            <p class="humidity">Humidity:</p>
-                        </div>
-                    </div>
-            
-                    <div class="column">
-                        <div class="box">
-                            <div class="media-center">
-                                <figure class="image is-64x64">
-                                    <img src="./assets/img/weather example.png">
-                                </figure>
-                            </div>
-                            <p id="date">20/04/2023</p>
-                            <p class="temperature">Temp:</p>
-                            <p class="wind">Wind:</p>
-                            <p class="humidity">Humidity:</p>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="box">
-                            <div class="media-center">
-                                <figure class="image is-64x64">
-                                    <img src="./assets/img/weather example.png">
-                                </figure>
-                            </div>
-                            <p id="date">20/04/2023</p>
-                            <p class="temperature">Temp:</p>
-                            <p class="wind">Wind:</p>
-                            <p class="humidity">Humidity:</p>
-                        </div>
-                    </div>
-
-                    <div class="column">
-                        <div class="box">
-                            <div class="media-center">
-                                <figure class="image is-64x64">
-                                    <img src="./assets/img/weather example.png">
-                                </figure>
-                            </div>
-                            <p id="date">20/04/2023</p>
-                            <p class="temperature">Temp:</p>
-                            <p class="wind">Wind:</p>
-                            <p class="humidity">Humidity:</p>
-                        </div>
-                    </div>
                 </div>
             </div>
+            -->
         </div>
 
     </main>
@@ -139,6 +91,6 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
     crossorigin="anonymous"></script>
-    <script src="./assets/script.js"></script>
+    <script src="./assets/script1.js"></script>
 </body>
 </html>
