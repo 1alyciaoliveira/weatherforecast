@@ -1,63 +1,141 @@
-const searchBtn = document.getElementById('search-btn');
-let input = document.getElementById('search-input');
-let searchQuery = '';
+const input = document.querySelector('#search-input');
+const searchBtn = document.querySelector('#search-btn');
 const API_KEY = '5c72bbaef5378ab58c9d6a361eea8ddf';
-const todayInfo = document.querySelector('#today-display');
-const cityName = document.querySelector('.city-name');
-const todayDate = document.querySelector('#today-date');
-const tempToday = document.querySelector('#temperature-today');
-const windToday = document.querySelector('#wind-today');
-const humidityToday = document.querySelector('#humidity-today');
-const baseURL = `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${API_KEY}`;
-
-const today = dayjs();
-$('#today-date').text(today.format('DD/MM/YY'));
+let searchQuery = '';
+const forecast = document.querySelector('#forecast');
+const todayDisplay = document.querySelector('#today-display');
+let previousCityBtn = document.querySelector('#previous-city');
 
 searchBtn.addEventListener('click', (e) => {
     e.preventDefault();
     searchQuery = input.value;
     fetchAPIweather();
     fetchAPIforecast();
+    saveCity();
 });
 
+
+
 async function fetchAPIweather () {
-    const baseURL1 = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=${API_KEY}`;
-    const response1 = await fetch(baseURL1);
-    const data1 = await response1.json();
-    generateHTML();
-    console.log(data1);
+    const todayBaseURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=${API_KEY}`;
+    const todayInfo = await fetch(todayBaseURL).then(response => response.json());
+    generateTodayHTML(todayInfo);
+    console.log(todayInfo);
+}
+
+function generateTodayHTML(results) {
+        const cityName = results.name;
+        const temp = Math.round(results.main.temp - 273.15);
+        const windToday = results.wind.speed;
+        const humidityToday = results.main.humidity;
+        const iconCode = results.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+
+let generatedTodayHTML =
+`
+<div class="section" id="today-display">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                    <h1 class="city-name">${cityName}</h1>
+                    <div id="icon"><img id="wicon" src="${iconUrl}" alt="Weather icon"></div>
+                    <p id="today-date"></p>
+                    <p id="temperature-today">Temperature: ${temp}°C</p>
+                    <p id="wind-today">Wind: ${windToday} meter/sec</p>
+                    <p id="humidity-today">Humidity: ${humidityToday}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+`;
+
+    todayDisplay.innerHTML = generatedTodayHTML;
+    var today = dayjs();
+        $('#today-date').text(today.format('YYYY-MM-DD'));
 }
 
 async function fetchAPIforecast () {
-    const baseURL = `https://api.openweathermap.org/data/2.5/forecast?q=${searchQuery}&appid=${API_KEY}`;
-    const response = await fetch(baseURL);
-    const data = await response.json();
-    console.log(data);
+    const forecastBaseURL = `https://api.openweathermap.org/data/2.5/forecast?q=${searchQuery}&appid=${API_KEY}`;
+    const forecastInfo = await fetch(forecastBaseURL).then(response => response.json());
+    const daily = forecastInfo.list.filter(forecast => forecast.dt_txt.includes("12:00:00"));
+    generateHTML(daily);
+
 }
 
 function generateHTML(results) {
     let generatedHTML = '';
-    results.map(result => {
-      generatedHTML += `
-        <div class="section" id="today-display">
+    results.forEach(forecast => {
+      const date = forecast.dt_txt.split(' ')[0];
+      const temperature = Math.round(forecast.main.temp - 273.15);
+      const wind = forecast.wind.speed;
+      const humidity = forecast.main.humidity;
+      const iconCodeForecast = forecast.weather[0].icon;
+      const iconUrlForecast = `http://openweathermap.org/img/w/${iconCodeForecast}.png`;
+      
+  
+      generatedHTML +=
+        `
+        <div class="section" id="forecast">
           <div class="container">
             <div class="columns">
               <div class="column">
                 <div class="box">
-                  <h1 class="city-name">${result.name}</h1>
-                  <img src="" alt="">
-                  <p id="today-date"></p>
-                  <p id="temperature-today">Temp: ${result.main.temp}</p>
-                  <p id="wind-today">Wind: ${result.wind.speed}</p>
-                  <p id="humidity-today">Humidity: ${result.main.humidity}</p>
+                  <div class="media-center">
+                    <figure class="image is-64x64">
+                      <img src="${iconUrlForecast}">
+                    </figure>
+                  </div>
+                  <p id="date">${date}</p>
+                  <p class="temperature">Temp: ${temperature}°C</p>
+                  <p class="wind">Wind: ${wind} meter/sec</p>
+                  <p class="humidity">Humidity: ${humidity}%</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      `;
+        `;
     });
-    
-    todayInfo.innerHTML = generatedHTML; // agregamos el HTML generado al contenido del elemento todayInfo
+  
+    forecast.innerHTML = generatedHTML;
+  }
 
+function saveCity () {
+    let savedCity = window.localStorage.getItem("savedCity") ? JSON.parse(window.localStorage.getItem("savedCity")) : [];
+    let city = searchQuery;
+
+    if(!savedCity.includes(city)) {
+
+    savedCity.push(city);
+    window.localStorage.setItem("savedCity", JSON.stringify(savedCity));
+    }
+    showCity();
 }
+
+function showCity () {
+        let searchHistoryContainer = document.querySelector('.search-history');
+        let savedCity = window.localStorage.getItem("savedCity") ? JSON.parse(window.localStorage.getItem("savedCity")) : [];
+        let generatedHistoryHTML = '';
+        for(let i=0; i< savedCity.length; i++) {
+            generatedHistoryHTML +=
+        `
+        <button class="button" id="previous-city">${savedCity[i]}</button>
+    `;
+    }
+    searchHistoryContainer.innerHTML = generatedHistoryHTML;
+    const previousCityBtns = document.querySelectorAll('#previous-city');
+    previousCityBtns.forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+            searchQuery = savedCity[i];
+            fetchAPIweather();
+            fetchAPIforecast();
+        });
+    });
+}
+
+showCity ();
+
+
+
